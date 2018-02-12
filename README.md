@@ -9,6 +9,8 @@ GDPR for WP is a proposed solution to GDPR compliance from a technical standpoin
 
 The core of the project is to supply the WordPress Community with a common way to identify and define Personal Identifiable Information. This means, data that alone or in combination with other data can identify a singel humanbeeing.
 
+![GDPR WP explained](https://github.com/GDPRWP/GDPRWP-Plugin/blob/master/gdpr%20for%20wordpress.jpg)
+
 Our approach is a standardized implementation of functions needed to provide Website admininstrators with the tools to  handel (but not limited to) Right to be forgotten, Data portability, Breach notifications, withdrawel of content, and Plain text policy. 
 
 ## 2 parts being developed
