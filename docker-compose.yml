@@ -1,0 +1,10 @@
+version: '3'
+services:
+  gdpr:
+    build: .
+    ports:
+    - "80:80"
+    - "1080:1080"
+    volumes:
+    - .:/var/www/wordpress/wp-content/plugins/GDPRWP-Plugin
+    - ../GDPRWP-Plugin-Sample:/var/www/wordpress/wp-content/plugins/GDPRWP-Plugin-Sample
