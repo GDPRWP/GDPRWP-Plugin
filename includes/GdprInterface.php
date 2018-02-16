@@ -6,8 +6,7 @@
  * @author  gdprwp.com
  */
 
-interface GdprInterface
-{
+interface GdprInterface {
 
 	/**
 	 * Returns the version of the used gdpr interface. Currently is it 1.0.0
@@ -33,7 +32,7 @@ interface GdprInterface
 	 * @var string $email
 	 * @return array $deleted_data
 	 */
-	public function delete_userdata( $user_email ) ;
+	public function delete_userdata( $user_email );
 
 	/**
 	 * Anonymize is also a way to forget a user, but still keep the userdata for statistics ect.
