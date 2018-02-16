@@ -1,30 +1,42 @@
 <?php
 
-require_once('gdpr-interface.php');
-Class GdprDataContainer implements GdprInterface
-{
-		public $email;
-		private $data = array(); // array( array( plugin_navn, fields => array () ) );
+require_once( 'GdprInterface.php' );
+require_once( 'GdprToolbox.php' );
+class GdprDataContainer implements GdprInterface {
 
-	public static function Instance()
-	{
+	public $email;
+
+	private $data = []; // array( array( plugin_navn, fields => array () ) );
+
+	public static function Instance() {
 		static $inst = null;
-		if ($inst === null) {
+		if ( $inst === null ) {
 			$inst = new GdprDataContainer();
 		}
+
 		return $inst;
 	}
 
 	public function __construct() {
-		// $this->email = $email;
+	}
+
+	public function init() {
+		$data = $this->get_data();
+	}
+
+	protected function get_data() {
+
+		return $this->data;
 	}
 
 	public function update_instance( $key, $instance ) {
 		$this->data[ $key ] = $instance;
 	}
+
 	protected function plugin_name( $plugin_name ) {
 		$this->plugin_name = $plugin_name;
 	}
+
 	/**
 	 * set_field
 	 *
@@ -42,9 +54,6 @@ Class GdprDataContainer implements GdprInterface
 		}
 		$this->data[ $gdpr_privacy->get_key() ] = $gdpr_privacy;
 	}
-
-
-
 
 	//////////////////////
 	//////////////////////

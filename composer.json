@@ -1,0 +1,27 @@
+{
+  "name": "wp/GDPR-plugin",
+  "description": "",
+  "type": "wordpress-plugin",
+  "keywords": ["wordpress", "plugin"],
+  "homepage": "http://gitlab.peytz.dk/wp/GDPR-plugin",
+  "authors": [
+    {
+      "name": "Peytz & Co",
+      "email": "wordpress@peytz.dk",
+      "homepage": "http://peytz.dk"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "GDPRWP\\": "src/"
+    }
+  }
+}

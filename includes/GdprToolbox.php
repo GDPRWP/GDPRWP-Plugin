@@ -1,26 +1,32 @@
 <?php
 
-Class GdprToolbox
-{
-		private $key;
-		private $email;
-		private $plugin_name;
-		private $plugin_slug;
-		private $fields;
-		private $gdpr_data_container;
+class GdprToolbox {
 
+	private $key;
+
+	private $email;
+
+	private $plugin_name;
+
+	private $plugin_slug;
+
+	private $fields;
+
+	private $anonymize_cbs;
+
+	private $gdpr_data_container;
 
 	public function __construct( $email ) {
 		$this->email = $email;
 		// if( $this->plugin_name != '') {
 		// 	return new GdprPrivacy( $email );
 		// }
-		$this->gdpr_data_container = GdprDataContainer::Instance();
+		$this->gdpr_data_container        = GdprDataContainer::Instance();
 		$this->gdpr_data_container->email = $email;
 	}
 
 	public function set_key( $key ) {
-		$this->key =  $key;
+		$this->key = $key;
 		$this->update_data();
 	}
 
@@ -29,12 +35,21 @@ Class GdprToolbox
 	}
 
 	public function set_plugin_name( $name ) {
-		$this->plugin_name =  $name;
+		$this->plugin_name = $name;
 		$this->update_data();
 	}
 
 	public function get_email() {
 		return $this->email;
+	}
+
+	public function set_anonymize_cb( $cb ) {
+		$this->anonymize_cbs[] = $cb;
+		$this->update_data();
+	}
+
+	public function get_anonymize_cb() {
+		return $this->anonymize_cbs;
 	}
 
 	/**
@@ -49,12 +64,9 @@ Class GdprToolbox
 		//update main med data fra denne instance
 
 	}
+
 	private function update_data() {
-		$this->gdpr_data_container->update_data( $this
-			// [
-				// 'plugin_name' => $this->plugin_name,
-				// 'fields' => $this->fields,
-			// ]
-		);
+		$this->gdpr_data_container->update_data( $this );
 	}
+
 }
