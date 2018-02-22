@@ -36,7 +36,7 @@ class GdprMain extends GdprDataContainer {
 		//http://yoursite.com/wp-admin/?debug-gdpr
 		if ( isset( $_GET['debug-gdpr'] ) ) {
 			print '<pre>';
-			s( GdprDataContainer::Instance() );
+			var_dump( GdprDataContainer::Instance() );
 			print '</pre>';
 
 			/**
@@ -54,7 +54,7 @@ class GdprMain extends GdprDataContainer {
 					//This will be run in a seperatly ajax request.
 					call_user_func_array( $callback, [ $plugin_data ] );
 					// if the plugin developer updates the $gdpr object ($plugin_data) with the corresponding functions, such as $gdpr->set_field() (or other functions), we can then find the updated date our GdprDataContainer
-					s( GdprDataContainer::Instance() );
+					var_dump( GdprDataContainer::Instance() );
 				}
 			}
 
