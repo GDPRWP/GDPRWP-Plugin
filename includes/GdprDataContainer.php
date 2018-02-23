@@ -18,6 +18,7 @@ class GdprDataContainer implements GdprInterface {
 	}
 
 	public function __construct() {
+
 	}
 
 	public function init() {
