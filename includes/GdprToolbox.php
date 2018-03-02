@@ -2,17 +2,17 @@
 
 class GdprToolbox {
 
-	private $key;
+	protected $key;
 
-	private $email;
+	protected $email;
 
-	private $plugin_name;
+	protected $plugin_name;
 
-	private $plugin_slug;
+	protected $plugin_slug;
 
-	private $fields;
+	protected $fields;
 
-	private $anonymize_cbs;
+	protected $anonymize_cbs;
 
 	private $gdpr_data_container;
 

@@ -6,9 +6,9 @@ class GdprDataContainer implements GdprInterface {
 
 	public $email;
 
-	private $data = []; // array( array( plugin_navn, fields => array () ) );
+	public $data = []; // array( array( plugin_navn, fields => array () ) );
 
-	public static function Instance() {
+	public static function instance() {
 		static $inst = null;
 		if ( $inst === null ) {
 			$inst = new GdprDataContainer();
@@ -83,4 +83,4 @@ class GdprDataContainer implements GdprInterface {
 
 }
 
-$gdpr_data_container = GdprDataContainer::Instance();
+$gdpr_data_container = GdprDataContainer::instance();
