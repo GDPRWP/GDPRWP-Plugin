@@ -35,10 +35,12 @@ class GdprEnqueues {
 
 			wp_localize_script(
 				'ajax_requests', 'gdprwp', [
+					// 'root' => esc_url_raw( rest_url() ),
+   					'nonce' => wp_create_nonce( 'wp_rest' ),
 					// 'DataContainer' => GdprDataContainer::Instance(),
 					// 'PluginsData' => $gdpr->get_data(),
 					'endpoints' => [
-						'get-data' => GdprApiBootstrap::get_route( 'get-data' ),
+						'getdata' => GdprApiBootstrap::get_route( 'getdata' ),
 					],
 				]
 			);

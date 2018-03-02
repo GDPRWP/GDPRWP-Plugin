@@ -20,31 +20,52 @@ class GdprMain extends GdprDataContainer {
 
 	private static $plugin_path;
 
+	public static function instance() {
+		static $inst = null;
+		if ( $inst === null ) {
+			$inst = new GdprMain();
+		}
+
+		return $inst;
+	}
+
 	public function __construct() {
 
 		require_once( 'includes/API/GdprApiBootstrap.php' );
 		require_once( 'includes/GdprToolbox.php' );
 		require_once( 'includes/Enqueue.php' );
-
+		require_once( 'includes/AdminSettings.php' );
 
 		// Uncomment to see the magic happen
 		add_action( 'admin_init', [ $this, 'run' ] );
 	}
 
+	public static function get_plugin_url() {
+		return untrailingslashit( plugins_url( '/', __FILE__ ) );
+	}
+
 	public static function get_plugin_path() {
 
 		if ( empty( self::$plugin_path ) ) {
-			self::$plugin_path = plugin_dir_url( __FILE__ );
+			self::$plugin_path = untrailingslashit( plugin_dir_path( __FILE__ ) );
 		}
 		return self::$plugin_path;
 	}
 
 	public static function get_assets_path() {
-		return self::get_plugin_path() . '/assets';
+		return self::get_plugin_url() . '/assets';
 	}
 
 	public static function get_js_path() {
 		return self::get_assets_path() . '/js';
+	}
+
+	public static function get_views_path( $template_name ) {
+		return self::get_plugin_path() . '/views/' . $template_name;
+	}
+
+	public static function get_view( $template_name, $vars = [] ) {
+		include self::get_views_path( $template_name );
 	}
 
 	public function run() {
@@ -88,4 +109,5 @@ class GdprMain extends GdprDataContainer {
 
 }
 
-$gdpr_main = new GdprMain();
+$gdpr_main = GdprMain::instance();
+

@@ -25,19 +25,19 @@ class GdprApiBootstrap {
 
 	public function register_routes() {
 		register_rest_route(
-			'gdprwp/v1', '/get-data', [
-				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => [ $this, 'read_callback' ],
-				'permission_callback' => [ $this, 'permissions' ],
-				'args'                => [
-					'email' => [
-						'description'       => '',
-						'type'              => 'string',
-						'required'          => true,
-						'validate_callback' => [ $this, 'validate_email' ],
-						'sanitize_callback' => '',
-					],
-				],
+			'gdprwp/v1', '/getdata', [
+				'methods'  => WP_REST_Server::READABLE,
+				'callback' => [ $this, 'read_callback' ],
+				// 'permission_callback' => [ $this, 'permissions' ],
+				// 'args'                => [
+					// 'email' => [
+						// 'description'       => '',
+						// 'type'              => 'string',
+						// 'required'          => true,
+						// 'validate_callback' => [ $this, 'validate_email' ],
+						// 'sanitize_callback' => '',
+					// ],
+				// ],
 			]
 		);
 		register_rest_route(
@@ -64,9 +64,9 @@ class GdprApiBootstrap {
 	}
 
 	public function permissions() {
-		if ( ! current_user_can( 'administrator' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( 'you can not view private data.', 'gdprwp' ), [ 'status' => 401 ] );
-		}
+		// if ( ! current_user_can( 'administrator' ) ) {
+			// return new WP_Error( 'rest_forbidden', esc_html__( 'you can not view private data.', 'gdprwp' ), [ 'status' => 401 ] );
+		// }
 		return true;
 	}
 
@@ -83,7 +83,17 @@ class GdprApiBootstrap {
 	}
 
 	public function read_callback( $request ) {
+		$email = $request->get_param( 'email' );
 
+		// You can get the combined, merged set of parameters:
+		$parameters = $request->get_params();
+
+		// The individual sets of parameters are also available, if needed:
+		// $parameters = $request->get_url_params();
+		// $parameters = $request->get_query_params();
+		// $parameters = $request->get_body_params();
+		// $parameters = $request->get_json_params();
+		// $parameters = $request->get_default_params();
 		//For now, only handle one email. @TODO handle multiple
 
 		// if ( isset( $request['email'] ) && ! empty( $request['email'] ) ) {
@@ -95,11 +105,16 @@ class GdprApiBootstrap {
 		// }
 		//
 
-		if ( isset( $request['email'] ) ) {
-			return rest_ensure_response( $request['email'] );
-		}
+		// if ( isset( $request['email'] ) ) {
+		// 	return rest_ensure_response( $request['email'] );
+		// }
+		do_action( 'gdpr_init', new GdprToolbox( $email ) );
+		$response['other_data']     = 'test';
+		$response['data_container'] = GdprDataContainer::Instance();
+		return rest_ensure_response( $response );
 
-		return new WP_Error( 'rest_invalid', esc_html__( 'The email parameter is required.', 'gdprwp' ), [ 'status' => 400 ] );
+		// return rest_ensure_response( $parameters );
+		// return new WP_Error( 'rest_invalid', esc_html__( 'The email parameter is required.', 'gdprwp' ), [ 'status' => 400 ] );
 
 	}
 
